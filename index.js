@@ -50,7 +50,7 @@ if (cluster.isPrimary) {
 
     function updateProgress() {
         const now = Date.now()
-        if (now - lastProgressUpdate > 1000 || lastProgressUpdate === 0) {
+        if (now - lastProgressUpdate > 60000 || lastProgressUpdate === 0) {
             const pct = ((totalChecked / totalProxies) * 100).toFixed(1)
             const rate = totalChecked > 0 ? (totalChecked / ((now - startTime) / 1000)).toFixed(1) : '0'
             console.log(`\r${color.gray('[')}${color.cyan('PROGRESS')}${color.gray(']')} ${color.magenta(pct + '%')} (${color.cyan(`${totalChecked}/${totalProxies}`)}) | Found: ${color.green(totalProxiesFound)} | Rate: ${color.magenta(rate + '/s')}   `)
@@ -145,7 +145,7 @@ if (cluster.isPrimary) {
 } else {
     let myip
     let proxies = []
-    const CONCURRENCY = 50
+    const CONCURRENCY = 20
     let idx = 0
     let running = 0
     let resolve
@@ -175,7 +175,7 @@ if (cluster.isPrimary) {
         return new Promise((resolve, reject) => {
             if (!host || !port) return reject(new Error("Missing host or port"))
             const start = Date.now()
-            const timeout = setTimeout(() => { socket.destroy(); reject(new Error("Timeout")) }, 10000)
+            const timeout = setTimeout(() => { socket.destroy(); reject(new Error("Timeout")) }, 5000)
 
             const socket = tls.connect({ host, port: parseInt(port), servername: targetHost }, () => {
                 socket.write(`GET ${path} HTTP/1.1\r\nHost: ${targetHost}\r\nUser-Agent: Mozilla/5.0\r\nReferer: https://speed.cloudflare.com\r\nConnection: close\r\n\r\n`)
