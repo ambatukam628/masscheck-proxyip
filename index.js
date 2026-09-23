@@ -145,7 +145,7 @@ if (cluster.isPrimary) {
 } else {
     let myip
     let proxies = []
-    const CONCURRENCY = 20
+    const CONCURRENCY = 50
     let idx = 0
     let running = 0
     let resolve
@@ -175,7 +175,7 @@ if (cluster.isPrimary) {
         return new Promise((resolve, reject) => {
             if (!host || !port) return reject(new Error("Missing host or port"))
             const start = Date.now()
-            const timeout = setTimeout(() => { socket.destroy(); reject(new Error("Timeout")) }, 5000)
+            const timeout = setTimeout(() => { socket.destroy(); reject(new Error("Timeout")) }, 10000)
 
             const socket = tls.connect({ host, port: parseInt(port), servername: targetHost }, () => {
                 socket.write(`GET ${path} HTTP/1.1\r\nHost: ${targetHost}\r\nUser-Agent: Mozilla/5.0\r\nReferer: https://speed.cloudflare.com\r\nConnection: close\r\n\r\n`)
