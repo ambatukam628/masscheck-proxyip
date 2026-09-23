@@ -114,7 +114,7 @@ if (cluster.isPrimary) {
                             totalProxiesFound++
                             activeProxies.push(msg.data)
                         }
-                        log(`Found: ${color.cyan(msg.data.proxy)}:${color.cyan(msg.data.port)} | ${color.yellow(msg.data.country || 'UNK')} | ${color.blue((msg.data.asOrganization || 'Unknown').substring(0, 30))} | ${color.cyan(msg.data.latency + 'ms')}`, "success")
+                      //  log(`Found: ${color.cyan(msg.data.proxy)}:${color.cyan(msg.data.port)} | ${color.yellow(msg.data.country || 'UNK')} | ${color.blue((msg.data.asOrganization || 'Unknown').substring(0, 30))} | ${color.cyan(msg.data.latency + 'ms')}`, "success")
                         updateProgress()
                     } else if (msg.type === "checked") {
                         totalChecked++
