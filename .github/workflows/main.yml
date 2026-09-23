@@ -8,7 +8,7 @@ on:
 jobs:
   scan-proxies:
     runs-on: ubuntu-24.04
-    name: Scan Proxy Node.js
+    name: Scan Proxy Bun
     permissions:
       contents: write
 
@@ -18,14 +18,14 @@ jobs:
         with:
           token: ${{ secrets.GIT_TOKEN || secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: '24'
+          bun-version: latest
 
       - name: Run Scanner
         run: |
-          node index.js
+          bun index.js
 
       - name: Commit Results
         if: success()
