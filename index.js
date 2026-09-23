@@ -204,7 +204,7 @@ if (cluster.isPrimary) {
             let info
             try { info = JSON.parse(res.body) } catch { process.send({ type: "checked" }); return }
 
-            if (typeof ipinfo.clientIp === 'string' && ipinfo.clientIp.trim() !== '' && ipinfo.clientIp !== myip) {
+            if (typeof info.clientIp === 'string' && info.clientIp.trim() !== '' && info.clientIp !== myip) {
                 const { clientIp: ip, httpProtocol, hostname, ...rest } = info
                 process.send({ type: "proxyFound", data: { proxy: host, port, proxyip: true, outIp: ip, latency: res.latency, ...rest } })
             }
